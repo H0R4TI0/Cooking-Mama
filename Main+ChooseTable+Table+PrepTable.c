@@ -2,8 +2,9 @@
 #include<string.h>
 //#include<ncurses.h>
 void Table(int,int,int[]);
-int PrepTable(int, int, int);
+int PrepTable(int, int);
 void ChooseTable (int[], int, int, int);
+int max;
 
 int main()
 {
@@ -18,28 +19,28 @@ int main()
 	scanf("%d %d",&a,&b);
 
 	max=a*b;	int table[max];
+	
 	for(n=0;n<max;n++)
-
-	table[n]=PrepTable(a,b,n);
+	table[n]=PrepTable(max,n);
 	
 	//Table(a,b,table);
 	
 	//PrepTable(a,b);
 	//Table(a,b);
 
-do{
+//do{
 
 	ChooseTable(table,max,a,b);
 
 	//printf("\n\n\n TESTING FOR THE SINGLULAR TABLE\n\n");
 	//Table(a,b,table);
-}while(max<1000);
+//}while(max<1000);
 
 }
 
-int PrepTable(int a, int b, int n)
+int PrepTable(int max, int n)
 {
-	int s,max=a*b;
+	int s;
 
 	int table[max];
 	for (s=0;s<=max;s++)
@@ -101,7 +102,7 @@ void ChooseTable(int table[],int max,int a,int b)
 	printf("\nSorry Table fully booked.\nPlease choose a different table\n\n");
 	scanf("%d",&try);
 }
-	printf("\nChooseTable Now!\n");
+	printf("\n Order Now!\n");
 	table[try-1]*=-1;
 	printf("\n\n##  Menu UDF  ##\n\n ~~~~  %d  ~~~~\n\n",table[try-1]);
 	
@@ -110,5 +111,4 @@ void ChooseTable(int table[],int max,int a,int b)
 		
 }
 	
-
 

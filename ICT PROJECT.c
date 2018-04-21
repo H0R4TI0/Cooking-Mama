@@ -1,11 +1,12 @@
 #include <stdio.h>
 void Stats (float price[][], quan[][])
 void Table(int,int,int[]);
-int PrepTable(int, int, int);
+void PrepTable(int, int[]);
 void ChooseTable (int[], int, int, int);
+void Menu (int[],int[]);
+void Order (int[],int[]);
 
 SetupPrice
-Menu
 Storage
 Checkout
 int i,max;
@@ -13,10 +14,11 @@ int i,max;
 int main()
 {
 	int a=4,b=3;
-	char person[];
-	float	ali;
+  	char food[9][15]={"food1","food2","food3","food4","food5","food6","food7","food8","food9","food10"};
 	
 	max=a*b;
+
+
 do
 {	
 	/*		#WELCOME TO DIS CAFE 		*/
@@ -39,21 +41,25 @@ do
 	}
 	else if(strcmpi(person,"C")==0)
 	{
-		a*b=max
-	int table[max];
-	for (s=0;s<=max;s++)
-		table[s]=s+1;
+	max=a*b;	int table[max],quan[max][9]={0};
 
-		Tables(a,b);
-		Order;
+	//for(n=0;n<max;n++)
+	/*table[n]=*/PrepTable(max,table);
+	
+	Table(a,b,table);
+
+	ChooseTable(table,max,a,b);
+	Menu(food);
+	Order(quan);
+	
 	
 	}
 
 } while(1)
 }
 
-
-int SetupPrice ()
+//######################################################################################3
+int SetupPrice ()  
 {
 	int a,b;
 
@@ -88,6 +94,8 @@ void Stats(char fcode[9][20]; float price[max][9], quan[max][9] )
 	return
 }
 
+//#########################################################################################
+
 void Table(int a, int b, int table[])
 {
 int s,i=0,y,x,no=0,max;
@@ -111,10 +119,13 @@ int s,i=0,y,x,no=0,max;
 	}
 
 }
+
+//###########################################################################
+
 //          [food code]
-void Menu(price[])
+void Menu(food[9][15],price[])
 {
-	char food[10][15]={"food1","food2","food3","food4","food5","food6","food7","food8","food9","food10"};
+
 	printf("\nFood Code \t\t Price\n");
 
 	for(x=0;x<8;x++)
@@ -123,12 +134,16 @@ void Menu(price[])
 }
 
 
-void Order()
+void Order(char fcode[9],int quan[max][9])
 {
-	char foodcode[5]; float price[max][20]; int quan[max][]
+	char foodcode[5],exit;
+	int quants,y;
 
+do
+{
 	printf("Insert Order Code and quantity\n-");
 	scanf("%s %d",foodcode,&quants); fflush(stdin);
+
 
 	if(strcmpi(foodcode,"a1")==0)
  	quan[i][0]+=quants;
@@ -148,37 +163,74 @@ void Order()
 	quan[i][7]+=quants;
 		else if(strcmpi(foodcode,"a9")==0)
 	quan[i][8]+=quants;
+	else if(strcmpi(foodcode,"a10")==0)
+	quan[i][9]+=quants;
+	
 
-	Storage(,quan[][])
+	for(y=0;y<9;y++)
+	{
+	if(quan[i][y]>0)      // FOODCODE ARRAY NEEDED //~~~~~~~~~~~~~~~~~
+	printf("\n%s\t->  %d\t\n\n",fcode[y],quan[i][y]);
 }
+printf("Press [a] order or [x] to finish\n\n"); exit=getch();
+
+}while(exit!='x'&&exit!='X');
+
+	
+}
+
+//#########################################################################################
 
 void ChooseTable(int table[],int max,int a,int b)
 {
-	int try;
+	int tableno;
 
-	Table(a,b,table);
+	
 	printf("Choose a table\n");
-	scanf("%d",&try);
+	scanf("%d",&tableno);
 
-	while(try>max||try==0)
+	while(tableno>max||tableno==0)
 {
 
 	printf("Invalid Table Number\n");
-	scanf("%d",&try);
+	scanf("%d",&tableno);
 }
 
-	while(table[try-1]<0)
+	while(table[tableno-1]<0)
 {
 	printf("\nSorry Table fully booked.\nPlease choose a different table\n\n");
-	scanf("%d",&try);
+	scanf("%d",&tableno);
 }
 	printf("\nOrder Now!\n");
-	table[try-1]*=-1;
-	printf("\n\n##  Menu UDF  ##\n\n ~~~~  %d  ~~~~\n\n",table[try-1]);
-
-
-	printf("___________________________________________________________________\n\n");
+	table[tableno-1]*=-1;
+	
 
 }
+
+//#########################################################################################
+
+void Storage(int quan[max][9])
+{
+	int
+}
+
+//#########################################################################################
+
+void PrepTable(int max, int table[max])
+{
+	int s;
+	for (s=0;s<=max;s++)
+		table[s]=s+1;
+
+}
+
+
+
+
+
+
+
+
+
 
 

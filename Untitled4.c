@@ -2,9 +2,8 @@
 #include<string.h>
 //#include<ncurses.h>
 void Table(int,int,int[]);
-int PrepTable(int, int);
-void ChooseTable (int[], int, int, int);
-int max;
+int PrepTable(int, int, int);
+void Order (int[], int, int, int);
 
 int main()
 {
@@ -19,28 +18,28 @@ int main()
 	scanf("%d %d",&a,&b);
 
 	max=a*b;	int table[max];
-	
 	for(n=0;n<max;n++)
-	table[n]=PrepTable(max,n);
+
+	table[n]=PrepTable(a,b,n);
 	
 	//Table(a,b,table);
 	
 	//PrepTable(a,b);
 	//Table(a,b);
 
-//do{
+do{
 
-	ChooseTable(table,max,a,b);
+	Order(table,max,a,b);
 
 	//printf("\n\n\n TESTING FOR THE SINGLULAR TABLE\n\n");
 	//Table(a,b,table);
-//}while(max<1000);
+}while(max<1000);
 
 }
 
-int PrepTable(int max, int n)
+int PrepTable(int a, int b, int n)
 {
-	int s;
+	int s,max=a*b;
 
 	int table[max];
 	for (s=0;s<=max;s++)
@@ -82,7 +81,7 @@ void Table(int a, int b, int table[])
 //}while(try!=99); // EXIT CODE, (DONT BE IN FINAL CODE)(JUST TO FURTHUR TEST CODE)
 }
 
-void ChooseTable(int table[],int max,int a,int b)
+void Order(int table[],int max,int a,int b)
 {
 	int try;
 	
@@ -99,10 +98,10 @@ void ChooseTable(int table[],int max,int a,int b)
 
 	while(table[try-1]<0)
 {
-	printf("\nSorry Table fully booked.\nPlease choose a different table\n\n");
+	printf("\n\nSorry Table fully booked.\nPlease choose a different table\n\n");
 	scanf("%d",&try);
 }
-	printf("\n Order Now!\n");
+	printf("\nOrder Now!\n");
 	table[try-1]*=-1;
 	printf("\n\n##  Menu UDF  ##\n\n ~~~~  %d  ~~~~\n\n",table[try-1]);
 	

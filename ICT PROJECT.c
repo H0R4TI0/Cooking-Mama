@@ -1,106 +1,126 @@
 #include <stdio.h>
-void Stats (float price[][], quan[][])
+#include <string.h>
+#include <ctype.h>
 void Table(int,int,int[]);
 void PrepTable(int, int[]);
 void ChooseTable (int[], int, int, int);
-void Menu (int[],int[]);
-void Order (int[],int[]);
+void Menu (char[][],float[]);
+void Order (char[][],int[][],int[]);
+void Stats (char[][], float [], int[]);
 
-SetupPrice
-Storage
-Checkout
+//SetupPrice
+//Checkout
 int i,max;
+
 
 int main()
 {
-	int a=4,b=3;
-  	char food[9][15]={"food1","food2","food3","food4","food5","food6","food7","food8","food9","food10"};
+	int a=4,b=3,x,y,reset=0; char person,choice;
+  	char fname[9][15]={"food1","food2","food3","food4","food5","food6","food7","food8","food9","food10"};
+  	 float price[9]={1,11.5,12.5,13.5,14.5,15.5,16.5,17.5,18.5}; max=a*b;
 	
-	max=a*b;
+	
+do
+{
+	
+	if(reset==1)
+	{
+		system("cls");
+		printf("Insert Restaurant table dimensions (Length X Width)\n-");
+		scanf("%d %d",&a,&b); max=a*b;
+		int table[max];
+		PrepTable(max,table);
+		reset=0;
+	}
+		
+			int table[max];int quan[max][9]; 
+			int totquan[9];
 
-
+	for(y=0;y<max;y++)
+	{
+		for(x=0;x<9;x++)
+		{
+			 /*  X=TABLE NUMBER, Y= FOOD CODE	*/
+			quan[y][x]=0;
+			totquan[x]=0;
+		}
+	}
 do
 {	
+
 	/*		#WELCOME TO DIS CAFE 		*/
 	/*	#MENU 	CUSTOMER OR MANAGER		*/
-	printf("Customer[C] or Manager[M]?");
-	getch(person);
-	if(strcmpi(person,"M")==0)
-	{
-		printf("[S]etup Restraunt Size\n[R]evenue")
-		if(strcmpi(choice,"S")==0)
-		{
-			printf("Insert Restaurant table dimensions (Length X Width)\n-");
-			scanf("%d %d",&a,&b);
-		}
+	printf("Customer[C] or Manager[M]?\n");
+	person=getch();
 
-		if(strcmpi(choice,"R")==0)
-		Stats;
-		
-
-	}
-	else if(strcmpi(person,"C")==0)
-	{
-	max=a*b;	int table[max],quan[max][9]={0};
-
-	//for(n=0;n<max;n++)
-	/*table[n]=*/PrepTable(max,table);
 	
+	
+	if(person=='C')
+	{
+	max=a*b;
+
+	
+	//PrepTable(max,table);
 	Table(a,b,table);
-
 	ChooseTable(table,max,a,b);
-	Menu(food);
-	Order(quan);
-	
-	
+	Menu(fname,price);
+	Order(fname,quan,totquan);	
+
 	}
 
-} while(1)
+
+	if(person=='M')
+	{
+		printf("[S]etup Restraunt Size\n[R]evenue");
+		choice=getch();
+		if(choice=='S')
+		reset=1;
+		
+		else if(choice=='R')
+		Stats(fname,price,totquan);
+	}
+
+} while(reset!=1);
+} while(1);
 }
 
 //######################################################################################3
-int SetupPrice ()  
-{
-	int a,b;
+//int SetupPrice ()  
+//{
+//	int a,b;
 
 
 
-}
+//}
 
 //              [food code][Name]     [Table][foodcode]=price  [table][foodcode]=quant
-void Stats(char fcode[9][20]; float price[max][9], quan[max][9] )
+void Stats(char fname[9][15], float price[9], int totquan[9])
 {
-	int x,y,no=1
-//		  [food code][Name] |  [Table][foodcode]=price | [table][foodcode]=quant
-	float total_sale[max][9]={0}, totprice[max]={0},totquan,[max]={0}
+	int x,y;
+	float total_sale=0;
 	
-	for(y=0;y<b;y++)
-	{
-		for(x=0;x<a;x++)
-		{
-			total_sale+=price[y]*quan[x][y]; /*  X=TABLE NUMBER, Y= FOOD CODE	*/
-			totprice[x]+=price[x][y];
-			totquan[x]+=quan[x][y];     /*  X=TABLE NUMBER, Y= FOOD CODE	*/
-		}
-
+	
+	for(x=0;x<9 ;x++ )
+	{total_sale+=totquan[x]*price[x];
 	}
-	printf("Total sale is RM%.2f/",total_sale);
+	printf("Total sale is RM%.2f\n\n",total_sale);
 
-	printf("Food Code /t Quantity /t	 Sale");
+	printf("Food Code \t Quantity \t	 Sale\n");
 	
-	for(x=0;x<=9;x++) /* 	10 is max items on menu	*/
-	printf("%s /t  %d /t %.2f/n",fcode[x][20],totquan[x],totprice[x]);
+	for(x=0;x<9;x++)
+	printf("%s \t \t %d \t\t %.2f\n",fname[x],totquan[x],totquan[x]*price[x]);
 	
-	return
+	
 }
 
-//#########################################################################################
+
 
 void Table(int a, int b, int table[])
 {
 int s,i=0,y,x,no=0,max;
 
-
+	system("cls");
+	printf("\n");
 	for(y=0;y<=(b-1);y++)
 	{
 		for(x=0;x<=(a-1);x++)
@@ -123,18 +143,18 @@ int s,i=0,y,x,no=0,max;
 //###########################################################################
 
 //          [food code]
-void Menu(food[9][15],price[])
+void Menu(char fname[9][15],float price[9])
 {
-
+	int x;
 	printf("\nFood Code \t\t Price\n");
 
-	for(x=0;x<8;x++)
-	printf("%s \t  \t \t %.2\n",food[x],price[x]);
+	for(x=0;x<9;x++)
+	printf("A%d\t%s \t  \t \t %.2f\n",x+1,fname[x],price[x]);
 	
 }
 
 
-void Order(char fcode[9],int quan[max][9])
+void Order(char fname[9][15],int quan[max][9], int totquan[9])
 {
 	char foodcode[5],exit;
 	int quants,y;
@@ -170,17 +190,28 @@ do
 	for(y=0;y<9;y++)
 	{
 	if(quan[i][y]>0)      // FOODCODE ARRAY NEEDED //~~~~~~~~~~~~~~~~~
-	printf("\n%s\t->  %d\t\n\n",fcode[y],quan[i][y]);
-}
+	printf("\n%s\t->  %d\t\n\n",fname[y],quan[i][y]);
+	}
 printf("Press [a] order or [x] to finish\n\n"); exit=getch();
 
 }while(exit!='x'&&exit!='X');
 
+	for(y=0;y<9;y++) // FOOD CODE
+	{
+			totquan[y]+=quan[i][y]; /*  X=TABLE NUMBER, Y= FOOD CODE	*/	
+	}
 	
 }
 
 //#########################################################################################
+void PrepTable(int max, int table[max])
+{
+	int s;
+	for (s=0;s<=max;s++)
+		table[s]=s+1;
 
+
+}
 void ChooseTable(int table[],int max,int a,int b)
 {
 	int tableno;
@@ -190,47 +221,22 @@ void ChooseTable(int table[],int max,int a,int b)
 	scanf("%d",&tableno);
 
 	while(tableno>max||tableno==0)
-{
+	{
 
 	printf("Invalid Table Number\n");
 	scanf("%d",&tableno);
-}
+	}
 
 	while(table[tableno-1]<0)
-{
+	{
 	printf("\nSorry Table fully booked.\nPlease choose a different table\n\n");
 	scanf("%d",&tableno);
-}
+	}
 	printf("\nOrder Now!\n");
-	table[tableno-1]*=-1;
-	
+
+	i=tableno-1;
+		table[tableno-1]*=-1;
 
 }
 
 //#########################################################################################
-
-void Storage(int quan[max][9])
-{
-	int
-}
-
-//#########################################################################################
-
-void PrepTable(int max, int table[max])
-{
-	int s;
-	for (s=0;s<=max;s++)
-		table[s]=s+1;
-
-}
-
-
-
-
-
-
-
-
-
-
-

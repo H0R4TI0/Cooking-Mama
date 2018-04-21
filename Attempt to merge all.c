@@ -13,13 +13,13 @@ int i,max;
 
 int main()
 {
-	int a=4,b=3,x,y,n; float price[9]={10.5,11.5,12.5,13.5,14.5,15.5,16.5,17.5,18.5};
+	int a=4,b=3,x,y,n; float price[9]={1,11.5,12.5,13.5,14.5,15.5,16.5,17.5,18.5};
   	char fname[9][15]={"food1","food2","food3","food4","food5","food6","food7","food8","food9"};
-	scanf("%d %d",&a,&b);
+	//scanf("%d %d",&a,&b);
 	max=a*b;
 
 	int table[max];int quan[max][9]; int stor[max][9];
-			float totprice[max],totquan[max];
+			float totprice[9],totquan[9];
 
 	for(y=0;y<max;y++)
 	{
@@ -35,6 +35,8 @@ int main()
 	PrepTable(max,table);
 
 do
+{	
+do
 	{  // DIS IS ALSO TO TEST
 	
 
@@ -43,12 +45,15 @@ do
 	ChooseTable(table,max,a,b);
 	Menu(fname,price);
 	Order(fname,quan);
+	printf("~~~%d~~~~\n",totquan[1]);
 	Storage(quan,stor);
 	
-	}while (quan[0][0]<99); // DIS IS TO TEST	
+	}while (quan[i][0]<99); // DIS IS TO TEST	
 	
 	Stats(fname,price,stor,totquan,totprice);
-	return 0;
+	
+} while(1);
+return 0;
 }
 
 void Table(int a, int b, int table[])
@@ -175,10 +180,10 @@ void ChooseTable(int table[],int max,int a,int b)
 void Storage(int quan[max][9], int stor[max][9])
 {
 	int x,y;
-	for(y=0;y<max;y++)
+	for(y=0;y<9;y++) // FOOD CODE
 	{
-		for(x=0;x<9;x++)
-		stor[y][x]+=quan[x][y]; /*  X=TABLE NUMBER, Y= FOOD CODE	*/
+		for(x=0;x<max;x++) // TABLE
+		stor[x][y]+=quan[x][y]; /*  X=TABLE NUMBER, Y= FOOD CODE	*/
 			
 	}
 }
@@ -188,22 +193,22 @@ void Storage(int quan[max][9], int stor[max][9])
 void Stats(char fname[9][15], float price[9], int stor[max][9], int totquan[9],float totprice[9] )
 {
 	int x,y,no=1;
-	float total_sale=0;
-	for(y=0;y<max;y++)
+	static float total_sale=0;
+	for(y=0;y<9;y++) //FOOD CODE
 	{
-		for(x=0;x<9;x++)
+		for(x=0;x<max;x++) //TABLE
 		{
-			total_sale+=price[x]*stor[x][y]; /*  X=TABLE NUMBER, X= FOOD CODE	*/
-			totquan[x]+=stor[x][y];     /*  Y=TABLE NUMBER, X= FOOD CODE	*/
-			totprice[x]+=price[x]*stor[x][y];
+			total_sale+=price[y]*stor[x][y]; /*  X=TABLE NUMBER, X= FOOD CODE	*/
+			totquan[y]+=stor[x][y];     /*  Y=TABLE NUMBER, X= FOOD CODE	*/
+			totprice[y]+=price[y]*stor[x][y];
 		}
 
 	}
-	printf("Total sale is RM%.2f\n",total_sale);
+	printf("Total sale is RM%.2f\n\n",total_sale);
 
 	printf("Food Code \t Quantity \t	 Sale\n");
 	
-	for(x=0;x<9;x++) /* 	10 is max items on menu	*/
+	for(x=0;x<9;x++)
 	printf("%s \t \t %d \t\t %.2f\n",fname[x],totquan[x],totprice[x]);
 	
 	

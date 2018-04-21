@@ -1,15 +1,18 @@
 #include <stdio.h>
 #include<string.h>
+#include<ctype.h>
 
 
 int main()
 {
-	int max=30;	char foodcode[5]; float price[max][20]; int quan[30][8]={0},quants,i=1,y;
+	int max=30;	char foodcode[5],exit;
+	int quan[30][10]={0},quants,i=1,y;
 
 do
 {
 	printf("Insert Order Code and quantity\n-");
 	scanf("%s %d",foodcode,&quants); fflush(stdin);
+
 
 	if(strcmpi(foodcode,"a1")==0)
  	quan[i][0]+=quants;
@@ -29,9 +32,18 @@ do
 	quan[i][7]+=quants;
 		else if(strcmpi(foodcode,"a9")==0)
 	quan[i][8]+=quants;
+	else if(strcmpi(foodcode,"a10")==0)
+	quan[i][9]+=quants;
+	else if(strcmpi(foodcode,"a11")==0)
+	quan[i][10]+=quants;
 
-	for(y=0;y<7;y++)
-	printf("quan[1][%d]->%d\t\n\n",y,quan[i][y]);
-}while(1);
+	for(y=0;y<10;y++)
+	{
+	if(quan[i][y]>0)      // FOODCODE ARRAY NEEDED //~~~~~~~~~~~~~~~~~
+	printf("\n%s\t->  %d\t\n\n",fcode[y],quan[i][y]);
+}
+printf("Press [a] order or [x] to finish\n\n"); exit=getch();
+
+}while(exit!='x'&&exit!='X');
 }
 

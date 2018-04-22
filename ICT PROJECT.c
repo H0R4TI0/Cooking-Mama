@@ -17,7 +17,7 @@ int main()
 {
 	int a=4,b=3,x,y,reset=0; char person,choice;
   	char fname[9][15]={"food1","food2","food3","food4","food5","food6","food7","food8","food9"};
-  	 float price[9]={1,11.5,12.5,13.5,14.5,15.5,16.5,17.5,18.5}; max=a*b;
+  	 float price[9]={10.5,11.5,12.5,13.5,14.5,15.5,16.5,17.5,18.5}; max=a*b;
 	
 	
 do

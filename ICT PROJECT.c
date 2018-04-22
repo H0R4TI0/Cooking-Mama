@@ -18,8 +18,12 @@ int main()
 	int a=4,b=3,x,y,reset=0; char person,choice;
   	char fname[9][15]={"food1","food2","food3","food4","food5","food6","food7","food8","food9"};
   	 float price[9]={10.5,11.5,12.5,13.5,14.5,15.5,16.5,17.5,18.5}; max=a*b;
-	
-	
+			int totquan[9];
+	for(x=0;x<9;x++)
+		{
+			 /*  X=TABLE NUMBER, Y= FOOD CODE	*/
+			totquan[x]=0;
+		}
 do
 {
 	
@@ -34,7 +38,7 @@ do
 	}
 		
 			int table[max];int quan[max][9]; 
-			int totquan[9];
+	
 
 	for(y=0;y<max;y++)
 	{
@@ -42,7 +46,7 @@ do
 		{
 			 /*  X=TABLE NUMBER, Y= FOOD CODE	*/
 			quan[y][x]=0;
-			totquan[x]=0;
+			//totquan[x]=0;
 		}
 	}
 do
@@ -97,7 +101,7 @@ do
 void Stats(char fname[9][15], float price[9], int totquan[9])
 {
 	int x,y;
-	float total_sale=0;
+	static float total_sale=0;
 	
 	
 	for(x=0;x<9 ;x++ )
@@ -214,29 +218,34 @@ void PrepTable(int max, int table[max])
 }
 void ChooseTable(int table[],int max,int a,int b)
 {
-	int tableno;
+	int tableno,check1,check2;
 
-	
+	check2=0;check1=0;
 	printf("Choose a table\n");
 	scanf("%d",&tableno);
 
-	while(tableno>max||tableno==0)
+
+while(check2==0)	
+{	
+	check2=0;check1=0;	
+	if(tableno>max||tableno==0)
 	{
 
 	printf("Invalid Table Number\n");
 	scanf("%d",&tableno);
 	}
-
-	while(table[tableno-1]<0)
+	
+	else if(table[tableno-1]<0)
 	{
 	printf("\nSorry Table fully booked.\nPlease choose a different table\n\n");
 	scanf("%d",&tableno);
 	}
+	else check2=1;
+}
+	
 	printf("\nOrder Now!\n");
 
 	i=tableno-1;
 		table[tableno-1]*=-1;
 
 }
-
-//#########################################################################################

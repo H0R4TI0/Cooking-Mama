@@ -12,6 +12,7 @@ int i,max;
 
 int  main ()
 {
+	system("color 0");
 	char input,cus,opt,person,choice;
 	int check,id,total=0,a=4,b=3,x,y,reset=0;
 	char fname[9][50]={"Skyjuice","Chicken Chop","Nasi Lemak","Nugget Crispy","Maggi Goreng","Nasi Ayam ","French Toast","Spaghetti","Nasi Bujang"};
@@ -137,6 +138,7 @@ do
 		
 		else if(choice=='R')
 		{Stats(fname,price,totquan);
+		system("pause");
 		system("cls");}	
 	}
 	
@@ -315,7 +317,7 @@ for(y=0;y<9;y++)
 	printf("_____________________________________________________________\n");
 	printf("\nTotal payment is RM%.2f\n\n",tot);
 	
-	printf("\n\nThank You, You May Now Get The Fuck Out Of The Retaurant");
+	printf("\n\nThank You, You May Now Get The Fuck Out Of The Retaurant\n\n\n");
 	
 
 }

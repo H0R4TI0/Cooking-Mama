@@ -72,6 +72,7 @@ do
 			Table(a,b,table);
 			ChooseTable(table,max,a,b);
 	        Menu(fname,price);
+	        printf("\nOrder Now!\n");
 	        Order(fname,quan,totquan);
 		}
 		else if(cus=='e'||cus=='E')
@@ -89,7 +90,9 @@ do
 			
 			switch (choice)
 			{
-				case 'o' :printf("\n\n"); Menu(fname,price);
+				case 'o' :printf("\n\n");
+					  	  printf("\nOrder Now!\n"); 
+				          Menu(fname,price);
 						  Order(fname,quan,totquan); break;
 						  
 						  
@@ -288,7 +291,7 @@ while(check2==0)
 	else check2=1;
 }
 	
-	printf("\nOrder Now!\n");
+
 
 	i=tableno-1;
 	table[tableno-1]*=-1;

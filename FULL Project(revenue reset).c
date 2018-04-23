@@ -7,7 +7,7 @@ void ChooseTable (int[], int, int, int);
 void Menu (char [9][50], float [9]);
 void Order (char[9][50], int[][9], int[9]);
 void Stats (char[9][50], float [], int[]);
-void Checkout(int [9][], char [9][50],int [],float[]);
+void Checkout(int [][9], char [9][50],int [],float[]);
 int i,max;
 
 int  main ()

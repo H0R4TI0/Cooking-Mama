@@ -142,6 +142,7 @@ do
 		system("cls");}	
 	}
 	
+	else system("cls");
 	
 		;
 } while(reset!=1);

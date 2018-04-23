@@ -102,12 +102,13 @@ void ChooseTable(int table[],int max,int a,int b)
 	printf("\nSorry Table fully booked.\nPlease choose a different table\n\n");
 	scanf("%d",&try);
 }
-	printf("\n Order Now!\n");
+//	printf("\n Order Now!\n");
+
 	table[try-1]*=-1;
-	printf("\n\n##  Menu UDF  ##\n\n ~~~~  %d  ~~~~\n\n",table[try-1]);
+//	printf("\n\n##  Menu UDF  ##\n\n ~~~~  %d  ~~~~\n\n",table[try-1]);
 	
 	
-	printf("___________________________________________________________________\n\n");
+	//printf("___________________________________________________________________\n\n");
 		
 }
 	

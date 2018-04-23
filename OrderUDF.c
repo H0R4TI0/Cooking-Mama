@@ -7,6 +7,7 @@ int main()
 {
 	int max=30;	char foodcode[5],exit;
 	int quan[30][10]={0},quants,i=1,y;
+	char fname[9][15]={"food1","food2","food3","food4","food5","food6","food7","food8","food9","food10"};
 
 do
 {
@@ -40,10 +41,10 @@ do
 	for(y=0;y<10;y++)
 	{
 	if(quan[i][y]>0)      // FOODCODE ARRAY NEEDED //~~~~~~~~~~~~~~~~~
-	printf("\n%s\t->  %d\t\n\n",fcode[y],quan[i][y]);
+	printf("\n%s\t->  %d\t\n\n",fname[y],quan[i][y]);
 }
-printf("Press [a] order or [x] to finish\n\n"); exit=getch();
+printf("Press any key to continue ordering or [x] to finish\n\n"); exit=getch();
 
-}while(exit!='x'&&exit!='X');
+}while(exit!='x'&& exit!='X');
 }
 

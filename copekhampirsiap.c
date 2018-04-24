@@ -1,243 +1,386 @@
 #include<stdio.h>
+#include<stdlib.h>
 #include<string.h>
-#include <ctype.h>
-void Table(int,int,int[]);
-void PrepTable(int, int[]);
-void ChooseTable (int[], int, int, int);
-void Menu (char [9][50], float [9]);
-void Order (char[9][50], int[][9], int[9]);
-void Stats (char[9][50], float [], int[]);
-int i,max;
+#include<ctype.h>
+#include<time.h>
+#define SIZE 5
+void Menu(char[],float[],int[], int snckk, float balance [], float sum []);
+void Calculate(char [], float [], int [], int snck, float [], float []);
+void Receipt( float[],char[], float [], float []);
+void Owner(int left[],int trials, float [], float []);
+int getpassword(void);
+void stock(char snack[], float price[],int left[], int trials, float [], float []);
 
-int  main ()
+
+int main ()
+{   //float price[]
+	char ans,rcpt,more,snack[SIZE]={'X','Y','Z','M','N'};
+	
+	float price[SIZE]={1.50,2.50,3.50,3.00,2.00},balance[]={0},sum[]={0};
+	int  left[20]={2,2,2,2,2}, trials=0,tries,i;
+	
+
+	do
+	{
+	fflush(stdin);
+	printf("\t YUMMY SNACKS\n");
+	printf("-------------------\n");
+	printf("A\t BUY\n");
+	printf("B\t OWNER\n");
+	printf("C\t EXIT\n");
+	printf("-------------------\n");
+	printf("Buy/Owner/Exit? (A/B/C): ");
+	scanf("%c",&ans);
+	printf("\n");
+	
+	switch (ans)
+	{
+		case 'A': case 'a':	Menu(snack,price,left,trials,balance,sum);
+		                    do
+							{
+		                       Calculate(snack, price, left, trials,balance,sum);
+		                      
+							} 
+							
+							while(trials=0);
+						
+							printf("More snack? Y/N: ");
+	  						scanf(" %c", &ans);
+			 
+			 						while(ans!='Y'&& ans!='y'&& ans!='N' && ans!='n')
+									{
+	 									printf("More snack? Y/N: ");
+	 									scanf(" %c", &ans);
+    								}
+  	
+     
+	     					while(ans=='y'|| ans=='Y');
+							printf("Print receipt? Y/N: ");
+							scanf(" %c",&rcpt);
+		
+			//Activation Of Function Receipt//
+			if(rcpt=='y'||rcpt=='Y')
+ 			{
+				printf("Please take your receipt.\n");
+ 				Receipt( price,snack,balance,sum);
+ 			}
+ 			    
+				printf("Thank You");break;
+		case 'B': case 'b':		
+								tries=getpassword();
+								if (tries < 3)
+								{
+									printf("Access Granted\n");
+									Owner(left,trials,balance,sum);				//call function owner
+								}
+								else
+								    printf("More than 3 trials, back to main menu\n\n");
+								break;
+							
+		case 'C': case 'c': break;
+		default :{
+					fflush(stdin);		
+					printf("Invalid! Please Re-Enter: \n");continue;
+				 }
+	}
+	}
+	while (ans != 'C' && ans != 'c');
+	
+	printf("Thank You =D");
+	return 0;
+}
+
+int getpassword(void)
 {
-	char input,cus,opt,person,choice;
-	int check,id,total=0,a=4,b=3,x,y,reset=0;
-	char fname[9][50]={"Skyjuice","Chicken Chop","Nasi Lemak","Nugget Crispy","Maggi Goreng","Nasi Ayam ","French Toast","Spaghetti","Nasi Bujang"};
-  	float price[9]={1.00,11.5,12.5,13.5,14.5,15.5,16.5,17.5,18.5}; max=a*b;
+	char code[10], pswrd[10]="awalla2";
+	int tries=1;
+	fflush(stdin);
+	printf("Enter Password (3 attempts only)\n");					//tries=getpasswor();
+	scanf("%s",code);
+	while (strcmp(code,pswrd) != 0 && tries <3)
+	{
+		fflush(stdin);
+		printf("Invalid Password! Please Re-enter.\n");
+		scanf("%s",&code);									
+		tries++;
+	}
+	return tries;
+}
+
+void Menu(char snack[], float price[],int left[], int trials, float balance[], float sum[])
+{   int i,j,x;
+	printf("\tYummy Snacks Vending Machine\n\n");
+	
+	for(i=0;i<5;i++)
+	{
+		printf("Snack %c\t",snack[i]);
+		
+	}
+	printf("\n\n");
+	for(i=0;i<5;i++)
+	{
+		
+		printf("RM %.2f\t",price[i]);
+	}
+	printf("\n\n");
+	for(i=0;i<5;i++)
+	{
+		if(left[i]==0)
+		{	
+			printf("N/A\t");
+	    }
+	     else
+			printf("%d left\t",left[i]);
+	}
+	printf("\n");
+	system("pause");
+	system("cls");
+	
+	
+	for(x=0;x<10;x++)
+	printf("p~~~%d~~\n",price[i]);
+	system("pause");
+	
+	for(x=0;x<10;x++)
+	printf("b~~~%d~~\n",balance[i]);
+	system("pause");
+	
+	for(x=0;x<10;x++)
+	printf("s~~~%d~~\n",sum[i]);
+	system("pause");
+
+	
+	
+}
+
+
+void Calculate(char snack[], float price[],int left[], int trials, float balance [], float sum [])
+{ 
+	int i=0,n,x;
+	float notes;
+  	char snck, ans,rcpt;
+	//select Snacks//
+
+		n=0;
+		printf(" \nSelect Your Snack (X/Y/Z/M/N): ");
+		snck=getch();
+		snck=toupper(snck);
+		while (snck!='X'&&snck!='Y'&&snck!='Z'&&snck!='M'&&snck!='N')
+		{
+			printf(" Select Your Snack (X/Y/Z/M/N): ");
+			scanf(" %c",&snck);
+			snck=toupper(snck);
+		}
+    	while (n<2)
+  		{
+    		if (snck!=snack[i])
+	    	{
+	    		i++;
+	    		n=0;    		
+	    	}
+	    	else 
+	    	{
+	    		n=2;
+	    	}
+    	}
+    	n=0;
+
+     	printf("Snack %c selected. Please Pay RM%.2f\n", snack[i], price[i] );
+	
+		//Calculate//
+		
+		printf("Insert notes (RM1,RM5,RM10)only: RM ");
+		scanf("%f",&notes);
+	
+		while(notes!=1 && notes !=5 && notes!=10)
+		{  
+		  
+			printf("Insert notes (RM1,RM5,RM10 only: RM ");
+		    scanf("%f",&notes);
+	        }
+	    sum[i]=notes;
+		while (sum[i]<price[i])
+	    {
+	    		printf("Insert notes (RM1,RM5,RM10 only: RM ");
+				scanf("%f",&notes);
+				sum[i]+=notes;
+	    }
+	    balance[i]=sum[i]-price[i];
+		 
+		printf("Amount received:RM  %.2f\n",sum[i]);
+		 printf("Balance: RM %.2f\n",balance[i]);
+		 left[i]-=1;
+		 trials+=1;
+		 system("cls");
+
+	for(x=0;x<10;x++)
+	printf("p~~~%f~~\n",price[i]);
+	system("pause");
+	
+	for(x=0;x<10;x++)
+	printf("b~~~%f~~\n",balance[i]);
+	system("pause");
+	
+	for(x=0;x<10;x++)
+	printf("s~~~%f~~\n",sum[i]);
+	system("pause");
+
+	
+		  Menu(snack,price,left,trials,balance,sum);
+		  
+	return;
+}
+
+void Owner(int left[],int trials, float balance [], float sum [])
+{
+	char S,TS,MO,snack[SIZE]={'X','Y','Z','M','N'};
+	float price[SIZE]={1.25,2.20,3.90,2.50,2.00};
+	int i,j;
+	
+	fflush(stdin);
+	printf("Replenish Stocks? (N/Y): ");
+	scanf("%c",&S);
+	while (S!= 'Y' && S!= 'y' && S!='N' && S!='n')
+	{
+		fflush(stdin);
+		printf("Replenish Stocks? (N/Y): ");
+		scanf("%c",&S);
+		printf("\n");
+	}
+	switch(S)
+	{
+		case 'Y': case 'y':	stock(snack,price,left,trials,balance,sum);break;											//call fx stock
+		case 'N': case 'n':	trials+=1;
+							Menu(snack,price,left,trials,balance,sum);break;
+		default : printf("Wrong Answer\n");
+	}
+	
+	fflush(stdin);
+		printf("Want to see Total Sale? ");
+		scanf("%c",&TS);
+	while (TS!= 'Y' && TS!= 'y' && TS!='N' && TS!='n')
+	{
+		fflush(stdin);
+		printf("Want to see Total Sale? ");
+		scanf("%c",&TS);
+	}
+	switch(TS)
+	{
+		case 'Y': case 'y': 
+							printf("\n");break;			//call TS function
+		case 'N': case 'n':	printf("\n");break;
+		default : printf("Wrong Answer\n");
+	}
+	
+	fflush(stdin);
+	printf("Do You Want To take Out The Money? ");
+	scanf("%c",&MO);
+	printf("\n");
+	while (MO!= 'Y' && MO!= 'y' && MO!='N' && MO!='n')
+	{
+		fflush(stdin);
+		printf("Do You Want To take Out The Money? ");
+		scanf("%c",&MO);
+	}
+	switch(MO)
+	{
+		case 'Y': case 'y': printf("Meh\n");break;			//call MO function
+		case 'N': case 'n':break;
+		default : printf("Wrong Answer\n");
+	}
+	return;
+}
+
+void stock(char snack[], float price[],int left[], int trials, float balance[], float sum[])
+{	int n,i=0,add;
+	char ans,snck;
 	
 	do
-{
+	{
+		n=0;
+		printf("Enter Snack That You Want To Replenish : \n");
+		scanf("%c",&snck);
+		snck=toupper(snck);
+		while (snck!='X'&&snck!='Y'&&snck!='Z'&&snck!='M'&&snck!='N')
+		{
+			printf(" Select Your Snack (X/Y/Z/M/N): ");
+			scanf("%c",&snck);
+			snck=toupper(snck);
+		}
+	    while (n<2)
+	  	{
+	   		if (snck!=snack[i])
+	    	{
+		   		i++;
+		   		n=0;    		
+		   	}
+		   	else 
+	    	{
+	    		n=2;
+	    	}
+    	}
+    	n=0;
+    	 trials+=1;
+		Menu(snack,price,left,trials,balance,sum);
+		
+		printf("Input Amount That You want To Replenish: \n");
+		scanf("%d",&add);
 	
-	if(reset==1)
-	{
-		system("cls");
-		printf("Insert Restaurant table dimensions (Length X Width)\n-");
-		scanf("%d %d",&a,&b); max=a*b;
-		int table[max];
-		PrepTable(max,table);
-		reset=0;
-	}
-		
-			int table[max];int quan[max][9]; 
-			int totquan[9];
-
-	for(y=0;y<max;y++)
-	{
-		for(x=0;x<9;x++)
+		while(left[i]+add > 20)
 		{
-			 /*  X=TABLE NUMBER, Y= FOOD CODE	*/
-			quan[y][x]=0;
-			totquan[x]=0;
+			printf("Too Many.Please Take Out %d,Maximum only 20\n",left[i]+add-20);
+			printf("Input Amount That You want To Replenish: \n");
+			scanf("%d",&add);
 		}
-	}
-do
-{	
-
-	printf("\t\tWELCOME TO CAFE RATATOUILLE\n");
-	printf("\nAre you a customer or a staff(c/s)?");
-	scanf("%c",&input);fflush(stdin);
-	if((input=='c')||(input=='C'))
-	{max=a*b;
-		printf("Are you an existing or new customer(e/n)?");
-		scanf("%c",&cus);fflush(stdin);
-		if(cus=='n'||cus=='N')
-		{
-			Table(a,b,table);
-			ChooseTable(table,max,a,b);
-	        Menu(fname,price);
-	        Order(fname,quan,totquan);
-		}
-		else if(cus=='e'||cus=='E')
-		{   printf("Enter your table number: ");
-			scanf("%d",&i);
-			printf("Order or Check Out (o/c)?");
-			scanf(" %c",&choice);fflush(stdin);
-			switch (choice)
-			{
-				case ('o') :
-				case ('O') : /*order()*/printf("x");break;
-				case ('c') :
-				case ('C') : /*receipt()*/printf("y");break;
-				default : printf("Invalid choice!");printf("Order or Check Out (o/c)?");scanf(" c",&choice);fflush(stdin);
-			}
-		}
-		
-	}
-	else if(input=='s'||input=='S')
-	{	
-	    do
-	    {check=0;
-		printf("Enter staff ID :");
-		scanf("%d",&id);
-		switch(id)
-		{case(172951):break;
-		 case(171679):break;
-		 default:printf("Invalid ID!\n");check=1;
-		}
-		}while(check==1);
-		
-	    printf("WELCOME STAFF!\n");
-		printf("[S]etup Restraunt Size\n");
-		printf("[R]evenue\n");
-		choice=getch();
-		if(choice=='S')
-		reset=1;
-		
-		else if(choice=='R')
-		Stats(fname,price,totquan);
-	}
-} while(reset!=1);
-}while(1);
+		left[i]+=add;
+		fflush(stdin);
+		printf("Do You Want To Replenish Another Snack?:(Y/N) \n");
+		scanf("%c",&ans);
+		printf("\n");
+	}while(ans=='Y' || ans=='y');
+	printf("Final Snack Update\n");
+	trials+=1;
+	Menu(snack,price,left,trials,balance,sum);
+	printf("\n\n");
+	
+	return;
 }
 
-void Stats(char fname[9][50], float price[9], int totquan[9])
-{
-	int x,y;
-	float total_sale=0;
+void Receipt(float price[],char snack[], float balance[], float sum [])
+{ 	
+	int i,x;
 	
-	
-	for(x=0;x<9 ;x++ )
-	{total_sale+=totquan[x]*price[x];
-	}
-	printf("Total sale is RM%.2f\n\n",total_sale);
-
-	printf("Food Code \t Quantity \t	 Sale\n");
-	
-	for(x=0;x<9;x++)
-	printf("%s \t \t %d \t\t %.2f\n",fname[x],totquan[x],totquan[x]*price[x]);
-}
-
-
-void Table(int a, int b, int table[])
-{
-int s,i=0,y,x,no=0,max;
+	time_t rawtime;
+	struct tm * timeinfo;
+	time ( &rawtime );
+	timeinfo = localtime ( &rawtime );
 
 	system("cls");
-	printf("\n");
-	for(y=0;y<=(b-1);y++)
-	{
-		for(x=0;x<=(a-1);x++)
-		{
-			if (table[i]>=0)
-			{printf("%d\t",++no);
-			++i;
-			}
-
-			else
-			{
-				printf ("X\t"); no++; i++;
-			}
-		}
-		printf("\n\n");
-	}
-
-}
-
-void Menu(char fname[9][50],float price[9])
-{
-	int x;
-	printf("\nFood Code \t\t Price\n");
-
-	for(x=0;x<9;x++)
-	printf("A%d\t%s \t  \t \t %.2f\n",x+1,fname[x],price[x]);
 	
-}
-
-
-void Order(char fname[9][50],int quan[max][9], int totquan[9])
-{
-	char foodcode[5],exit;
-	int quants,y;
-
-do
-{
-	printf("Insert Order Code and quantity\n-");
-	scanf("%s %d",foodcode,&quants); fflush(stdin);
-
-
-	if(strcmpi(foodcode,"a1")==0)
- 	quan[i][0]+=quants;
-	else if(strcmpi(foodcode,"a2")==0)
-	quan[i][1]+=quants;
-		else if(-strcmpi(foodcode,"a3")==0)
-	quan[i][2]+=quants;
-		else if(strcmpi(foodcode,"a4")==0)
-	quan[i][3]+=quants;
-		else if(strcmpi(foodcode,"a5")==0)
-	quan[i][4]+=quants;
-		else if(strcmpi(foodcode,"a6")==0)
-	quan[i][5]+=quants;
-		else if(strcmpi(foodcode,"a7")==0)
-	quan[i][6]+=quants;
-		else if(strcmpi(foodcode,"a8")==0)
-	quan[i][7]+=quants;
-		else if(strcmpi(foodcode,"a9")==0)
-	quan[i][8]+=quants;
-	else if(strcmpi(foodcode,"a10")==0)
-	quan[i][9]+=quants;
 	
-
-	for(y=0;y<9;y++)
-	{
-	if(quan[i][y]>0)      // FOODCODE ARRAY NEEDED //~~~~~~~~~~~~~~~~~
-	printf("\n%s\t->  %d\t\n\n",fname[y],quan[i][y]);
-	}
-printf("Press [a] order or [x] to finish\n\n"); exit=getch();
-
-}while(exit!='x'&&exit!='X');
-
-	for(y=0;y<9;y++) // FOOD CODE
-	{
-			totquan[y]+=quan[i][y]; /*  X=TABLE NUMBER, Y= FOOD CODE	*/	
-	}
+	for(x=0;x<10;x++)
+	printf("p~~~%d~~\n",price[i]);
+	system("pause");
 	
-}
-
-
-void PrepTable(int max, int table[max])
-{
-	int s;
-	for (s=0;s<=max;s++)
-		table[s]=s+1;
-}
-
-
-void ChooseTable(int table[],int max,int a,int b)
-{
-	int tableno;
+	for(x=0;x<10;x++)
+	printf("b~~~%d~~\n",balance[i]);
+	system("pause");
+	
+	for(x=0;x<10;x++)
+	printf("s~~~%d~~\n",sum[i]);
+	system("pause");
 
 	
-	printf("Choose a table\n");
-	scanf("%d",&tableno);
-
-	while(tableno>max||tableno==0)
-	{
-
-	printf("Invalid Table Number\n");
-	scanf("%d",&tableno);
-	}
-
-	while(table[tableno-1]<0)
-	{
-	printf("\nSorry Table fully booked.\nPlease choose a different table\n\n");
-	scanf("%d",&tableno);
-	}
-	printf("\nOrder Now!\n");
-
-	i=tableno-1;
-		table[tableno-1]*=-1;
-
+	printf("*****************************************************\n");
+	printf("Yummy Inc., Jalan Universiti, PJ\t%s\n",asctime (timeinfo));
+	printf("Snack Purchased: Snack %c\n",snack[i]);
+	printf("Price: RM %.2f\n",price[i]);
+	printf("Received: RM %.2f\n",sum[i]);
+	printf("Balance: RM %.2f\n",balance[i]);
+	printf("Enjoy your snack. \n");
+	printf("*****************************************************\n");
+	
+	return;
 }
 
-    
+

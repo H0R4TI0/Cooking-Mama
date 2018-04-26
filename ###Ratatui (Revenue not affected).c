@@ -14,7 +14,7 @@ int i,max;
 int  main ()
 {
 	system("color 0");
-	char input,cus,opt,person,choice,staff[3][30]={"REZZZZZAAAAMMMIIIRRRRR","SYAFIQQ FX","GRAND MASTER BIG BOSS"};
+	char input,cus,opt,person,choice,staff[4][50]={"REZZZZZAAAAMMMIIIRRRRR","SYAFIQQ FX","GRAND MASTER BIG BOSS","SUPER MEGA ULTRA BIG SUPREME POWERFUL BOSS"};
 	int check,id,total=0,a=4,b=3,x,y,reset=0,staf,cherk=0,totquan[10];
 	char fname[10][50]={"Skyjuice","Chicken Chop","Nasi Lemak","Nugget Crispy","Maggi Goreng","Nasi Ayam ","French Toast","Spaghetti","Nasi Bujang","Saussaggee"};
   	float price[10]={1.00,11.5,12.5,13.5,14.5,15.5,16.5,17.5,18.5,35.0}; max=a*b;
@@ -78,7 +78,7 @@ do
 		if(cus=='n'||cus=='N')
 		{
 			system("cls");
-			printf("\n\t\t~~~Available tables~~~~~~\n");
+			printf("\n\t\t~~~Available tables~~\n");
 			Table(a,b,table);
 			ChooseTable(table,max,a,b);
 	        Menu(fname,price);
@@ -108,21 +108,21 @@ do
 						  
 						  
 				case 'c' :printf("\n\n~~~~~~~~~~~~~~~~~~~~~~~~~~~\n\tRECIEPT\n\n~~~~~~~~~~~~~~~~~~~~~~~~~~~\n\n");
-				Checkout(quan,fname,table,price);break;
+				Checkout(quan,fname,table,price);system("pause");break;
 				
 				case 'O' :printf("\n\n");
 				 		  Menu(fname,price);
 						  Order(fname,quan,totquan,price); break;
 						  
 						  
-				case 'C' :printf("\n\n~~~~~~~~~~~~~~~~~~~~~~~~~~~\tRECIEPT\n~~~~~~~~~~~~~~~~~~~~~~~~~~~\n\n");
-				Checkout(quan,fname,table,price);break;
+				case 'C' :printf("\n\n~~~~~~~~~~~~~~~~~~~~~~~~~~~\n\tRECIEPT\n~~~~~~~~~~~~~~~~~~~~~~~~~~~\n\n");
+				Checkout(quan,fname,table,price);system("pause");break;
 				
 				
 				default : printf("Invalid choice!");
 				
 			}
-			system("pause");
+		
 		}
 		else 
 		{printf("\n\nInvalid Table!\n\n\n");
@@ -141,6 +141,7 @@ do
 		{case(172951):staf=0;break;
 		 case(171679):staf=1;break;
 		 case(173224):staf=2;break;
+		 case(5232):staf=3;break;
 		 default:printf("Invalid ID!\n");check=1;
 		}
 		}while(check==1);
@@ -169,7 +170,7 @@ do
 		
 		else if(cherk!=0)
 	{
-		system("cls");	printf("\n\n~~~~~~~~~~~%d",cherk);
+		system("cls");
 		printf("\n\nUnable to Set Restaurant Size\n\n");
 		printf("\n**There is still people in the Restaurant!\n\n\n\n\n\n\n\n\n\n");
 		system("pause");
@@ -366,7 +367,7 @@ void Checkout(int quan[max][10], char fname[10][50],int table[max], float price[
 	int x,y;float totp,tot=0;
 	
 	system("color F");
-	printf("Food \t \tQuantity \tprice\n");
+	printf("Food \t \tQuantity \tPrice\n");
 	table[i]*=-1;
 for(y=0;y<10;y++)
 	{
@@ -374,7 +375,7 @@ for(y=0;y<10;y++)
 	if(quan[i][y]>0)      // FOODCODE ARRAY NEEDED //~~~~~~~~~~~~~~~~~
 	{	
 		totp=quan[i][y]*price[y];
-		printf("\n%s\t  %d\t%.2f\n\n",fname[y],quan[i][y],totp);
+		printf("\n%s\t  %d\t\t%.2f\n\n",fname[y],quan[i][y],totp);
 		tot+=quan[i][y]*price[y];
 		
 	}
